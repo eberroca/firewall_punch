@@ -16,14 +16,14 @@ int main (int argc, char *argv[])
     proto_t         msg;
     proto_t         msg1;
 
-	if (argc < 4)
-	{
-		fprintf(stderr, "USE: %s <SERVER_IP_ADDR> <SERVER_PORT> <CMD>\n",
-			argv[0]);
-		return -1;
-	}
+    if (argc < 4)
+    {
+        fprintf(stderr, "USE: %s <SERVER_IP_ADDR> <SERVER_PORT> <CMD>\n",
+            argv[0]);
+        return -1;
+    }
     serverIP   = argv[1];
-	serverPort = (uint16_t) atoi(argv[2]);
+    serverPort = (uint16_t) atoi(argv[2]);
     cmd        = (int) atoi(argv[3]);
 
     if (cmd < 1 || cmd > 2) {
@@ -94,8 +94,8 @@ int main (int argc, char *argv[])
             return -1;
         }
 
-		fprintf(stdout, "(UDP) received !!!!\n");
-		fprintf(stdout, "message = %s\n", msg1.msg);
+        fprintf(stdout, "(UDP) received !!!!\n");
+        fprintf(stdout, "message = %s\n", msg1.msg);
     }
 
     if (tcp_conn_destroy_client(&tcp_client) < 0) {
@@ -106,5 +106,5 @@ int main (int argc, char *argv[])
         return -1;
     }
 
-	return 0;
+    return 0;
 }
