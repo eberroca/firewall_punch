@@ -192,7 +192,6 @@ int tcp_conn_destroy_server(tcp_server_t **server)
     free((*server)->active_conns);
     free(*server);
     *server = NULL;
-exit:
     return ret;
 }
 

@@ -10,8 +10,8 @@ int main(int argc, char *argv[])
     int             port;
     tcp_server_t*   server;
     int             conn;
-    int             conn1;
-    int             conn2;
+    int             conn1 = -1;
+    int             conn2 = -1;
     proto_t         msg;
     proto_t         msg1;
     proto_t         msg2;
@@ -48,10 +48,22 @@ int main(int argc, char *argv[])
         fprintf(stdout, "received command %d\n", msg.cmd);
 
         if (msg.cmd == 1) { // sender
+            if (conn1 >= 0) {
+                if (tcp_conn_destroy_connection(server, conn) < 0) {
+                    return -1;
+                }
+                continue;
+            }
             conn1 = conn;
             msg1  = msg;
             strcpy(msg1.ipv4, server->active_conns[conn].ipv4);
         } else if (msg.cmd == 2) { // receiver
+            if (conn1 < 0) {
+                if (tcp_conn_destroy_connection(server, conn) < 0) {
+                    return -1;
+                }
+                continue;
+            }
             conn2 = conn;
             msg2  = msg;
             strcpy(msg2.ipv4, server->active_conns[conn].ipv4);
@@ -87,6 +99,8 @@ int main(int argc, char *argv[])
             if (tcp_conn_destroy_connection(server, conn2) < 0) {
                 return -1;
             }
+            conn1 = -1;
+            conn2 = -2;
         }
 
     }
