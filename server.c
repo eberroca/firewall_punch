@@ -57,6 +57,7 @@ int main(int argc, char *argv[])
             conn1 = conn;
             msg1  = msg;
             strcpy(msg1.ipv4, server->active_conns[conn].ipv4);
+
         } else if (msg.cmd == 2) { // receiver
             if (conn1 < 0) {
                 if (tcp_conn_destroy_connection(server, conn) < 0) {
