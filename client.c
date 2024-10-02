@@ -19,7 +19,7 @@ int main (int argc, char *argv[])
     if (argc < 4)
     {
         fprintf(stderr, "USE: %s <SERVER_IP_ADDR> <SERVER_PORT> <CMD>\n",
-            argv[0]);
+                argv[0]);
         return -1;
     }
     serverIP   = argv[1];
@@ -71,6 +71,7 @@ int main (int argc, char *argv[])
                          sizeof(msg)) < 0) {
             return -1;
         }
+        
     } else { /* cmd == 2 */
 
         /** create firewall hole */
