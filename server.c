@@ -109,7 +109,7 @@ int main(int argc, char *argv[])
                 return -1;
             }
             conn1 = -1;
-            conn2 = -2;
+            conn2 = -1;
         }
     }
     // we never really reach this part of the code
