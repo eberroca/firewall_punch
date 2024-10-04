@@ -49,6 +49,9 @@ int main(int argc, char *argv[])
 
         if (msg.cmd == 1) { // sender
             if (conn1 >= 0) {
+                fprintf(stdout, "recevied command 1 twice! destroying ");
+                fprintf(stdout, "connection...\n");
+
                 if (tcp_conn_destroy_connection(server, conn) < 0) {
                     return -1;
                 }
@@ -59,7 +62,10 @@ int main(int argc, char *argv[])
             strcpy(msg1.ipv4, server->active_conns[conn].ipv4);
 
         } else if (msg.cmd == 2) { // receiver
-            if (conn1 < 0) {
+            if (conn2 >= 0) {
+                fprintf(stdout, "recevied command 2 twice! destroying ");
+                fprintf(stdout, "connection...\n");
+                
                 if (tcp_conn_destroy_connection(server, conn) < 0) {
                     return -1;
                 }
@@ -68,7 +74,9 @@ int main(int argc, char *argv[])
             conn2 = conn;
             msg2  = msg;
             strcpy(msg2.ipv4, server->active_conns[conn].ipv4);
+        }
 
+        if (conn1 >=0 && conn2 >= 0) {
             /** send sender info to receiver */
             if (tcp_conn_send_msg(server,
                                   conn2,
@@ -103,7 +111,6 @@ int main(int argc, char *argv[])
             conn1 = -1;
             conn2 = -2;
         }
-
     }
     // we never really reach this part of the code
     return 0;
